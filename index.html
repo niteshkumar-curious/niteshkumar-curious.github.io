@@ -1,15 +1,158 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Nitesh Kumar Blog</title>
-</head>
-<body>
-  <h1>Welcome to My Blog</h1>
-  <p>Embedded Systems | IoT | OTA Projects</p>
+  <title>ESP32 OTA Firmware Update System</title>
 
-  <h2>Projects</h2>
-  <ul>
-    <li><a href="ota-project.html">ESP32 OTA Project</a></li>
-  </ul>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      line-height: 1.6;
+      max-width: 900px;
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+    }
+
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 12px;
+      overflow-x: auto;
+      border-radius: 5px;
+    }
+
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>ESP32 OTA Firmware Update System</h1>
+
+<p>
+This project demonstrates an IoT-based remote device management system using ESP32,
+where firmware updates can be performed over-the-air (OTA) without physical access.
+It enables efficient, scalable, and secure firmware deployment for embedded systems.
+</p>
+
+<hr>
+
+<h2>📌 Problem Statement</h2>
+<p>
+Traditional embedded systems require physical connection (USB/UART) for firmware updates.
+This is inefficient for deployed or remote devices. The goal is to build a system that allows
+remote firmware updates securely using the internet.
+</p>
+
+<h2>⚙️ System Architecture</h2>
+<ul>
+  <li>ESP32 (ESP-IDF) for firmware execution</li>
+  <li>MQTT for communication and remote commands</li>
+  <li>HTTPS for secure firmware download</li>
+  <li>GitHub for firmware hosting</li>
+  <li>Web dashboard (Netlify/Render) for control and monitoring</li>
+</ul>
+
+<h2>🚀 Features</h2>
+<ul>
+  <li>Over-the-Air firmware updates</li>
+  <li>Secure HTTPS firmware download</li>
+  <li>MQTT-based remote control</li>
+  <li>Real-time OTA progress tracking</li>
+  <li>FreeRTOS-based multitasking</li>
+  <li>Cloud-based firmware deployment</li>
+</ul>
+
+<h2>🧠 Working</h2>
+<p>
+The ESP32 connects to WiFi and subscribes to MQTT topics. When an OTA command is received,
+the device downloads firmware from a GitHub-hosted URL using HTTPS. The update runs in
+real-time, and progress is sent back via MQTT. After completion, the device restarts
+with the updated firmware.
+</p>
+
+<h2>📊 OTA Flow</h2>
+<ol>
+  <li>Device connects to WiFi and MQTT broker</li>
+  <li>User sends OTA command</li>
+  <li>ESP32 downloads firmware via HTTPS</li>
+  <li>Progress (0–100%) is published</li>
+  <li>Device restarts with new firmware</li>
+</ol>
+
+<h2>💻 OTA Code Snippet</h2>
+
+<pre><code>
+esp_http_client_config_t http_config = {
+    .url = OTA_FIRMWARE_URL,
+    .crt_bundle_attach = esp_crt_bundle_attach,
+};
+
+esp_https_ota_config_t ota_config = {
+    .http_config = &http_config,
+};
+
+esp_https_ota(&ota_config);
+</code></pre>
+
+<h2>🔗 Project Repository</h2>
+<p>
+Source code available on GitHub:
+<br>
+<a href="https://github.com/niteshkumar-curious/esp32-ota-firmware" target="_blank">
+github.com/niteshkumar-curious/esp32-ota-firmware
+</a>
+</p>
+
+<h2>📦 Firmware Hosting</h2>
+<p>
+The firmware binary is hosted on GitHub and accessed by the ESP32 during OTA updates.
+This enables easy version control and remote deployment.
+</p>
+
+<h2>🛠️ Technologies Used</h2>
+<ul>
+  <li>Embedded C (ESP-IDF)</li>
+  <li>ESP32 Microcontroller</li>
+  <li>MQTT Protocol</li>
+  <li>HTTPS OTA</li>
+  <li>FreeRTOS</li>
+  <li>GitHub, Netlify, Render</li>
+</ul>
+
+<h2>⚠️ Challenges Faced</h2>
+<ul>
+  <li>Handling OTA failures and ensuring system reliability</li>
+  <li>Managing MQTT reconnection</li>
+  <li>Task synchronization using FreeRTOS</li>
+  <li>Ensuring secure firmware download</li>
+</ul>
+
+<h2>✅ Results</h2>
+<ul>
+  <li>Successfully implemented remote firmware updates</li>
+  <li>Achieved real-time monitoring using MQTT</li>
+  <li>Built a scalable IoT update system</li>
+</ul>
+
+<h2>📌 Conclusion</h2>
+<p>
+This project demonstrates how OTA updates improve scalability and maintainability of embedded systems.
+It provides a strong foundation for industrial IoT and automation applications.
+</p>
+
 </body>
 </html>
